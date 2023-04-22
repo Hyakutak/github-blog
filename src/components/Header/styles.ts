@@ -22,5 +22,6 @@ export const HeaderContainer = styled.header`
         left: 0;
         z-index: 1; 
         background: url(${BackgroundHeader});
+        background-size: cover;
     }
 `;

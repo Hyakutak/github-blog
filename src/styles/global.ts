@@ -13,7 +13,11 @@ export const GlobalStyle = createGlobalStyle`
         -webkit-font-smoothing: antialiased;
     }
 
-    body, span, input {
+    body, span, input, p {
         font: 400 1rem 'Nunito', sans-serif;
-    } 
+    }
+
+    input {
+        border: 0;
+    }
 `;

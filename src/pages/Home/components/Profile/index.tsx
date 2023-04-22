@@ -4,7 +4,11 @@ import GithubLogo from '../../../../assets/icons/github-brands.svg';
 import BuildingSolid from '../../../../assets/icons/building-solid.svg';
 import UserGroup from '../../../../assets/icons/user-group-solid.svg';
 import ArrowUp from '../../../../assets/icons/arrow-up-right-from-square-solid.svg';
-import { ProfileContainer, ProfileAvatar, ProfileContainerInformation } from './styles';
+import { ProfileContainer, 
+    ProfileAvatar, 
+    ProfileContainerInformation, 
+    ProfileHeader,
+    ProfileInfo } from './styles';
 
 interface User {
     avatar_url: string;
@@ -27,26 +31,24 @@ export function Profile() {
         fetchProfile();
     }, []);
 
-    console.log(profile)
-
     return (
         <ProfileContainer>
-            <section>
-                <ProfileAvatar src={ profile?.avatar_url } />
-            </section>
+            <ProfileAvatar>
+                <img src={ profile?.avatar_url } />
+            </ProfileAvatar>
             <ProfileContainerInformation>
-                <div>
+                <ProfileHeader>
                     <h2>{ profile?.name }</h2>
                     <a href={ profile?.url }>
                         Github
                         <img src={ArrowUp} />
                     </a>
-                </div>
+                </ProfileHeader>
                 <span>
                     Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu viverra massa quam dignissim aenean 
                     malesuada suscipit. Nunc, volutpat pulvinar vel mass.
                 </span>
-                <div>
+                <ProfileInfo>
                     <p>
                         <img src={GithubLogo} />
                         { profile?.login }
@@ -59,7 +61,7 @@ export function Profile() {
                         <img src={UserGroup} />
                         { profile?.followers } seguidores
                     </p>
-                </div>
+                </ProfileInfo>
             </ProfileContainerInformation>
         </ProfileContainer>
     );
