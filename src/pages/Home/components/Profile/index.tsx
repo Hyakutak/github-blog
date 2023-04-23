@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { api } from '../../../../lib/axios';
 import GithubLogo from '../../../../assets/icons/github-brands.svg';
 import BuildingSolid from '../../../../assets/icons/building-solid.svg';
@@ -9,6 +9,7 @@ import { ProfileContainer,
     ProfileContainerInformation, 
     ProfileHeader,
     ProfileInfo } from './styles';
+import { PostsContext } from '../../../../contexts/PostsContext';
 
 interface User {
     avatar_url: string;
@@ -18,12 +19,13 @@ interface User {
     followers: number;
     company: string;
     bio: string;
-    url: string
+    url: string;
+    repos_url: string
 }
 
 export function Profile() {
     const [profile, setProfile] = useState<User>();
-    const username = 'hyakutak';
+    const { username } = useContext(PostsContext)
 
     async function fetchProfile() {
         const response = await api.get<User>(`users/${username}`);
@@ -33,8 +35,6 @@ export function Profile() {
     useEffect(() => {
         fetchProfile();
     }, []);
-
-    console.log(profile?.url)
 
     return (
         <ProfileContainer>
