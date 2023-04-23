@@ -14,8 +14,11 @@ interface User {
     avatar_url: string;
     name: string;
     login: string;
-    url: string;
-    followers: number
+    html_url: string;
+    followers: number;
+    company: string;
+    bio: string;
+    url: string
 }
 
 export function Profile() {
@@ -31,6 +34,8 @@ export function Profile() {
         fetchProfile();
     }, []);
 
+    console.log(profile?.url)
+
     return (
         <ProfileContainer>
             <ProfileAvatar>
@@ -39,14 +44,16 @@ export function Profile() {
             <ProfileContainerInformation>
                 <ProfileHeader>
                     <h2>{ profile?.name }</h2>
-                    <a href={ profile?.url }>
+                    <a href={ profile?.html_url } target='_blank'>
                         Github
                         <img src={ArrowUp} />
                     </a>
                 </ProfileHeader>
                 <span>
-                    Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu viverra massa quam dignissim aenean 
-                    malesuada suscipit. Nunc, volutpat pulvinar vel mass.
+                    {
+                        profile?.bio ? profile.bio 
+                        : 'Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu viverra massa quam dignissim aenean malesuada suscipit.'
+                    }
                 </span>
                 <ProfileInfo>
                     <p>
@@ -55,11 +62,11 @@ export function Profile() {
                     </p>
                     <p>
                         <img src={BuildingSolid} />
-                        Rocketseat
+                        { profile?.company ? profile?.company : 'Rocketseat' }
                     </p>
                     <p>
                         <img src={UserGroup} />
-                        { profile?.followers } seguidores
+                        { profile?.followers == 0 ? 'Your is lone' : `${profile?.followers} seguidores` }
                     </p>
                 </ProfileInfo>
             </ProfileContainerInformation>

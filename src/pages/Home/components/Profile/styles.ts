@@ -11,6 +11,7 @@ export const ProfileContainer = styled.article`
     position: absolute;
     top: -6.75rem;
     z-index: 2;
+    width: 100%;
 `;
 
 export const ProfileAvatar = styled.section`

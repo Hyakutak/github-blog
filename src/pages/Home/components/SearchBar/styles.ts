@@ -28,6 +28,8 @@ export const SearchBarContainer = styled.article`
         background-color: ${(props) => props.theme['base-input']};
         border: 1px solid ${(props) => props.theme['base-border']};
         padding: .75rem 1rem;
+        color: ${(props) => props.theme['base-label']};
+        font-size: 1rem;
 
         &::placeholder {
             color: ${(props) => props.theme['base-label']};
