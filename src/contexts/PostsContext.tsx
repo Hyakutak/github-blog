@@ -21,18 +21,15 @@ export function PostsContextProvider({ children }: postsContextProviderProps) {
     const [reposUrl, setReposUrl] = useState<string>('');
     const repo = 'github-blog';
     const username = 'hyakutak';
-    const search = 'github';
 
     async function fetchIssues() {
-        const response = await api.get(`/search/issues/q=${search}%20repo:${username}/${repo}`);
+        const response = await api.get(`repos/${username}/${repo}/issues`);
         setReposUrl(response.data);
     }
 
     useEffect(() => {
         fetchIssues();
     }, []);
-
-    console.log(reposUrl)
 
     return (
         <PostsContext.Provider value={{
