@@ -1,15 +1,14 @@
 import { useEffect, useState, useContext } from 'react';
+import { PostsContext } from '../../../../contexts/PostsContext';
 import { api } from '../../../../lib/axios';
-import GithubLogo from '../../../../assets/icons/github-brands.svg';
-import BuildingSolid from '../../../../assets/icons/building-solid.svg';
-import UserGroup from '../../../../assets/icons/user-group-solid.svg';
-import ArrowUp from '../../../../assets/icons/arrow-up-right-from-square-solid.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBuilding, faArrowUpRightFromSquare, faUserGroup } from '@fortawesome/free-solid-svg-icons';
+import {  faGithub } from '@fortawesome/free-brands-svg-icons';
 import { ProfileContainer, 
     ProfileAvatar, 
     ProfileContainerInformation, 
     ProfileHeader,
     ProfileInfo } from './styles';
-import { PostsContext } from '../../../../contexts/PostsContext';
 
 interface User {
     avatar_url: string;
@@ -19,8 +18,6 @@ interface User {
     followers: number;
     company: string;
     bio: string;
-    url: string;
-    repos_url: string
 }
 
 export function Profile() {
@@ -28,8 +25,21 @@ export function Profile() {
     const { username } = useContext(PostsContext);
 
     async function fetchProfile() {
-        const response = await api.get<User>(`users/${username}`);
-        setProfile(response.data);
+        try {
+            const response = await api.get<User>(`users/${username}`);
+            const {avatar_url, login, html_url, name, bio, company, followers} = response.data;
+            setProfile( {
+                avatar_url,
+                name,
+                login,
+                html_url,
+                followers,
+                company,
+                bio
+            });
+        } catch (error) {
+            console.error("ops! Não foi possível buscar o usuário" + error);
+        }
     }
 
     useEffect(() => {
@@ -46,7 +56,7 @@ export function Profile() {
                     <h2>{ profile?.name }</h2>
                     <a href={ profile?.html_url } target='_blank'>
                         Github
-                        <img src={ArrowUp} />
+                        <FontAwesomeIcon icon={faArrowUpRightFromSquare} color='#3294F8' size='xs'/>
                     </a>
                 </ProfileHeader>
                 <span>
@@ -57,15 +67,15 @@ export function Profile() {
                 </span>
                 <ProfileInfo>
                     <p>
-                        <img src={GithubLogo} />
+                        <FontAwesomeIcon icon={faGithub} color='#3A536B' size='lg'/>
                         { profile?.login }
                     </p>
                     <p>
-                        <img src={BuildingSolid} />
+                        <FontAwesomeIcon icon={faBuilding} color='#3A536B' size='lg'/>
                         { profile?.company ? profile?.company : 'Rocketseat' }
                     </p>
                     <p>
-                        <img src={UserGroup} />
+                        <FontAwesomeIcon icon={faUserGroup} color='#3A536B' size='lg'/>
                         { profile?.followers == 0 ? 'Your is lone' : `${profile?.followers} seguidores` }
                     </p>
                 </ProfileInfo>
