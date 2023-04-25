@@ -25,7 +25,7 @@ interface User {
 
 export function Profile() {
     const [profile, setProfile] = useState<User>();
-    const { username } = useContext(PostsContext)
+    const { username } = useContext(PostsContext);
 
     async function fetchProfile() {
         const response = await api.get<User>(`users/${username}`);

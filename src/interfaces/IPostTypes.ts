@@ -1,3 +1,7 @@
+import { IPost } from './IPost';
+
 export interface PostsContextType {
-    username: string
+    username: string;
+    reposUrl: IPost[];
+    totalPublications: number;
 }
