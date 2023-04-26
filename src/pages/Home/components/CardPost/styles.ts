@@ -11,13 +11,14 @@ export const PostContainer = styled.section`
         display: flex;
         flex-direction: column;
         gap: 1.25rem;
+        cursor: pointer;
         header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             gap: 1rem;
             h3 {
-                max-width: 17.6875rem;
+                max-width: 16.6875rem;
                 font-weight: 700;
                 font-size: 1.25rem;
                 line-height: 2rem;

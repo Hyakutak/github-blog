@@ -1,24 +1,27 @@
 import { PostContainer } from './styles';
 import { IPost } from '../../../../interfaces/IPost';
-import { formatDistanceToNow } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { FormEvent } from 'react';
+import { FormatterDate } from '../../../../utils/Formatter';
 
-export function CardPost({ title, body, created_at, id } :IPost) {
-    const newDate = new Date(created_at);
+export function CardPost({ ...props } :IPost) {
+    const newDate = new Date(props.created_at);
+    const navigate = useNavigate();
+
+    function handleClickSendPost(event: FormEvent) {
+        event.preventDefault();
+        navigate(`posts/${props.id}`, { state: {props}} )
+    }
 
     return (
         <PostContainer>
-            <Link to={'posts/' + id}>
+            <a onClick={handleClickSendPost}>
                 <header>
-                    <h3>{ title }</h3>
-                    <span>{ formatDistanceToNow(newDate, {
-                        addSuffix: true,
-                        locale: ptBR,
-                    })}</span>
+                    <h3>{ props.title }</h3>
+                    <span>{ FormatterDate(props.created_at) }</span>
                 </header>
-                <p>{ body }</p>
-            </Link>
+                <p>{ props.body }</p>
+            </a>
         </PostContainer>
     );
 }
