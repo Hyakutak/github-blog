@@ -11,7 +11,13 @@ export function SearchBar() {
 
     async function fetchSearchPost(data: string) {
         const response = await api.get(`search/issues?q=${data}repo:${username}/${repo}`);
-        setNewSearchPosts(response.data.items);
+        const posts = response.data.items;
+        const newArray:IPost[] = [];
+        posts.forEach((post: IPost) => {
+            const {title, id, body, comments, created_at, html_url, user} = post;
+            newArray.push({title, id, body, comments, created_at, html_url, user});
+        });
+        setNewSearchPosts(newArray);
         searchPosts(newSearchPosts);
     }
 

@@ -34,7 +34,8 @@ export function PostsContextProvider({ children }: postsContextProviderProps) {
 
     function searchPosts(data: IPost[]) {
         const newPosts = {...data};
-        !newPosts && setReposUrl(newPosts);
+        console.log(newPosts)
+        //newPosts && setReposUrl(newPosts);
     }
 
     return (
