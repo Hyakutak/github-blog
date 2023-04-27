@@ -33,9 +33,8 @@ export function PostsContextProvider({ children }: postsContextProviderProps) {
     }, []);
 
     function searchPosts(data: IPost[]) {
-        const newPosts = {...data};
-        console.log(newPosts)
-        //newPosts && setReposUrl(newPosts);
+        const newPosts = [...data];
+        data.length >= 1 ? setReposUrl(newPosts) : fetchIssues();
     }
 
     return (
