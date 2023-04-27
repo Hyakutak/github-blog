@@ -10,7 +10,9 @@ interface postsContextProviderProps {
 const postEmpty: PostsContextType = {
     username: '',
     reposUrl: [],
-    totalPublications: 0
+    totalPublications: 0,
+    repo: '',
+    searchPosts: () => {}
 }
 
 export const PostsContext = createContext<PostsContextType>(postEmpty);
@@ -30,11 +32,18 @@ export function PostsContextProvider({ children }: postsContextProviderProps) {
         fetchIssues();
     }, []);
 
+    function searchPosts(data: IPost[]) {
+        const newPosts = {...data};
+        !newPosts && setReposUrl(newPosts);
+    }
+
     return (
         <PostsContext.Provider value={{
             username,
             reposUrl,
-            totalPublications
+            repo,
+            totalPublications,
+            searchPosts
         }}>
             { children }
         </PostsContext.Provider>

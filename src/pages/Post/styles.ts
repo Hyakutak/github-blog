@@ -29,8 +29,8 @@ export const PostHeader = styled.header`
             display: flex;
             align-items: center;
             gap: .5rem;
-            img {
-                width: .75rem;
+            svg {
+                font-size: .75rem;
             }
         }
     }
@@ -52,9 +52,8 @@ export const PostHeader = styled.header`
             color: ${(props) => props.theme['base-span']};
             font-size: 1rem;
             line-height: 1.625rem;
-            img {
-                width: 1.125rem;
-                opacity: .5;
+            svg {
+                font-size: 1.125rem;
             }
         }
     }

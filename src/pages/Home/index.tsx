@@ -9,7 +9,7 @@ import { IPost } from '../../interfaces/IPost';
 export function Home() {
     const { reposUrl } = useContext(PostsContext);
 
-    const Posts = reposUrl? reposUrl.map((post: IPost) => (<CardPost key={post.id} {...post} />)) : <></>;
+    const Posts = reposUrl ? reposUrl.map((post: IPost) => (<CardPost key={post.id} {...post} />)) : <></>;
 
     return (
         <MainContainer>

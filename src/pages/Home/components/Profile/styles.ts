@@ -62,9 +62,8 @@ export const ProfileHeader = styled.header`
         text-transform: uppercase;
         text-decoration: none;
         color: ${(props) => props.theme['blue']};
-        img {
-            width: 0.703125rem;
-            fill: ${(props) => props.theme['blue']};
+        svg {
+            font-size: 0.703125rem;
         }
     }
 `;
@@ -80,9 +79,8 @@ export const ProfileInfo = styled.footer`
         gap: .5rem;
         color: ${(props) => props.theme['base-subtitle']};
         line-height: 1.625rem;
-        img {
-            width: 1.125rem;
-            opacity: .5;
+        svg {
+            font-size: 1.125rem;
         }
     }
 `;
