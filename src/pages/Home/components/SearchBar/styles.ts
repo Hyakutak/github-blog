@@ -30,6 +30,7 @@ export const SearchBarContainer = styled.article`
         padding: .75rem 1rem;
         color: ${(props) => props.theme['base-label']};
         font-size: 1rem;
+        width: 100%;
 
         &::placeholder {
             color: ${(props) => props.theme['base-label']};

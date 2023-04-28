@@ -25,7 +25,13 @@ export function PostsContextProvider({ children }: postsContextProviderProps) {
 
     async function fetchIssues() {
         const response = await api.get(`/repos/${username}/${repo}/issues`);
-        setReposUrl(response.data);
+        const responsePosts = response.data;
+        const postsArray:IPost[] = [];
+        responsePosts.forEach((post: IPost) => {
+            const {title, id, body, comments, created_at, html_url, user} = post;
+            postsArray.push({title, id, body, comments, created_at, html_url, user});
+        });
+        setReposUrl(postsArray);
     }
 
     useEffect(() => {

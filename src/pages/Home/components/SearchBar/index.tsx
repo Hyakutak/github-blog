@@ -1,13 +1,24 @@
-import { ChangeEvent, useContext, useState } from 'react';
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { PostsContext } from '../../../../contexts/PostsContext';
-import { SearchBarContainer } from './styles';
 import { api } from '../../../../lib/axios';
 import { IPost } from '../../../../interfaces/IPost';
-
+import { SearchBarContainer } from './styles';
 
 export function SearchBar() {
     const { totalPublications, repo, username, searchPosts } = useContext(PostsContext);
-    const [ newSearchPosts, setNewSearchPosts ] = useState<IPost[]>([]);
+
+    const SearchFormSchema = z.object({
+        query: z.string(),
+    });
+
+    type SearchFormInput = z.infer<typeof SearchFormSchema>
+
+    const { register, handleSubmit } = useForm<SearchFormInput>({
+        resolver: zodResolver(SearchFormSchema),
+    });
 
     async function fetchSearchPost(data: string) {
         const response = await api.get(`search/issues?q=${data}repo:${username}/${repo}`);
@@ -17,13 +28,11 @@ export function SearchBar() {
             const {title, id, body, comments, created_at, html_url, user} = post;
             newArray.push({title, id, body, comments, created_at, html_url, user});
         });
-        setNewSearchPosts(newArray);
-        searchPosts(newSearchPosts);
+        searchPosts(newArray);
     }
 
-    function handleChangeSearchPost(event: ChangeEvent<HTMLInputElement>) {
-        const queryString = encodeURIComponent(event.target.value);
-        fetchSearchPost(queryString);
+    function handleChangeSearchPost(data: SearchFormInput) {
+        fetchSearchPost(data.query);
     }
 
     return (
@@ -32,10 +41,12 @@ export function SearchBar() {
                 <h5>Publicações</h5>
                 <span>{ totalPublications } publicações</span>
             </header>
-            <input 
-                type='text'
-                placeholder="Buscar Conteudo"
-                onChange={handleChangeSearchPost} />
+            <form onChange={handleSubmit(handleChangeSearchPost)}>
+                <input 
+                 type='text'
+                 placeholder="Buscar Conteudo"
+                 {...register('query')} />
+            </form>
         </SearchBarContainer>
     );
 }
