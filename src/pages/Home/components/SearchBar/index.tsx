@@ -24,9 +24,9 @@ export function SearchBar() {
         const response = await api.get(`search/issues?q=${data}repo:${username}/${repo}`);
         const posts = response.data.items;
         const newArray:IPost[] = [];
-        posts.forEach((post: IPost) => {
-            const {title, id, body, comments, created_at, html_url, user} = post;
-            newArray.push({title, id, body, comments, created_at, html_url, user});
+        posts.forEach((post: any) => {
+            const {title, id, body, comments, created_at, html_url, user: {login}, number} = post;
+            newArray.push({title, id, body, comments, created_at, html_url, login: login, number});
         });
         searchPosts(newArray);
     }

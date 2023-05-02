@@ -27,9 +27,9 @@ export function PostsContextProvider({ children }: postsContextProviderProps) {
         const response = await api.get(`/repos/${username}/${repo}/issues`);
         const responsePosts = response.data;
         const postsArray:IPost[] = [];
-        responsePosts.forEach((post: IPost) => {
-            const {title, id, body, comments, created_at, html_url, user} = post;
-            postsArray.push({title, id, body, comments, created_at, html_url, user});
+        responsePosts.forEach((post: any) => {
+            const {title, id, body, comments, created_at, html_url, user: {login}, number} = post;
+            postsArray.push({title, id, body, comments, created_at, html_url, login: login, number: number});
         });
         setReposUrl(postsArray);
     }

@@ -1,27 +1,25 @@
 import { PostContainer } from './styles';
-import { IPost } from '../../../../interfaces/IPost';
-import { useNavigate } from 'react-router-dom';
-import { FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { FormatterDate } from '../../../../utils/Formatter';
 
-export function CardPost({ ...props } :IPost) {
-    const newDate = new Date(props.created_at);
-    const navigate = useNavigate();
+interface PropsCard {
+    id: number,
+    title: string,
+    created_at: string,
+    body: string,
+    number: number
+}
 
-    function handleClickSendPost(event: FormEvent) {
-        event.preventDefault();
-        navigate(`posts/${props.id}`, { state: {props}} )
-    }
-
+export function CardPost({ ...props } :PropsCard) {
     return (
         <PostContainer>
-            <a onClick={handleClickSendPost}>
+            <Link to={`/posts/${props.number}`}>
                 <header>
                     <h3>{ props.title }</h3>
                     <span>{ FormatterDate(props.created_at) }</span>
                 </header>
                 <p>{ props.body }</p>
-            </a>
+            </Link>
         </PostContainer>
     );
 }
