@@ -12,4 +12,7 @@ export const MainContainerPosts = styled.article`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
+    @media screen and (max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 `;

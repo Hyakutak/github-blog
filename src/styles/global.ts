@@ -20,4 +20,13 @@ export const GlobalStyle = createGlobalStyle`
     input {
         border: 0;
     }
+
+    @media screen and (max-width: 768px) {
+        html {
+            font-size: 87.5%;
+        }
+        main {
+            padding: 0 1rem;
+        }
+    }
 `;

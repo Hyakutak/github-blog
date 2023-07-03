@@ -12,6 +12,9 @@ export const ProfileContainer = styled.article`
     top: -6.75rem;
     z-index: 2;
     width: 100%;
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+    }
 `;
 
 export const ProfileAvatar = styled.section`
@@ -26,6 +29,10 @@ export const ProfileAvatar = styled.section`
         height: 100%;
         object-fit: cover;
         border-radius: 8px;
+    }
+    @media screen and (max-width: 768px) {
+        height: 17.85714285714286rem;
+        max-width: 100%;
     }
 `;
 
